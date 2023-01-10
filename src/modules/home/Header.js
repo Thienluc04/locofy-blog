@@ -46,7 +46,7 @@ const Header = () => {
                 to="/register"
                 kind="primary"
               >
-                Sign up FREE Beta
+                Sign up
               </Button>
             </>
           )}
