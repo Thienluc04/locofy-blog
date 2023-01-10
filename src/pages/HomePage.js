@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Heading } from "components/heading";
+import { SpinLoading } from "components/loading";
 import Subscribe from "modules/common/Subscribe";
 import Banner from "modules/home/Banner";
 import BlogItem from "modules/home/BlogItem";
@@ -55,6 +56,7 @@ const HomePage = () => {
         <div className="lg:mt-[65px] mt-10">
           <Heading className="mb-5 lg:px-0 px-4">Editor’s Pick</Heading>
           <FeaturedBlogs>
+            {!featuredBlogs && <SpinLoading></SpinLoading>}
             {featuredBlogs.map((item, index) => {
               if (index <= 4) {
                 return (
@@ -76,6 +78,7 @@ const HomePage = () => {
             </Link>
           </div>
           <BlogsList>
+            {!allBlog && <SpinLoading></SpinLoading>}
             <BlogItem data={allBlog && allBlog[0]}></BlogItem>
             <BlogItem data={allBlog && allBlog[1]}></BlogItem>
             <BlogItem data={allBlog && allBlog[2]}></BlogItem>

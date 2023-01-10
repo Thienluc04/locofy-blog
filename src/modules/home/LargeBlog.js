@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Author } from "components/author";
+import { SpinLoading } from "components/loading";
 import React, { Fragment } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -29,6 +30,7 @@ const LargeBlog = ({ className = "" }) => {
     <div
       className={`flex lg:flex-row flex-col justify-center items-center rounded-lg p-3 lg:p-6 lg:gap-5 ${className}`}
     >
+      {!blogData && <SpinLoading></SpinLoading>}
       {blogData?.length > 0 &&
         blogData?.map((item) => (
           <Fragment key={item.id}>

@@ -18,28 +18,32 @@ const BlogItem = ({ data }) => {
               alt=""
             />
           </Link>
-          <div className="p-4 mt-1">
-            <Infor
-              to={`/category/${data?.category?.slug}`}
-              heading={data?.category?.name}
-              time={data?.createdAt}
-              normal
-            ></Infor>
-            <Link
-              to={`/${data?.slug}`}
-              className="font-fontHeading text-[26px] font-bold leading-[34px] mt-1 mb-2"
-            >
-              {data?.title}
-            </Link>
-            <p className="mb-3">{data?.description.slice(0, 100) + "..."}</p>
-            <div className="line"></div>
-            <Author
-              authorLink={`/author/${data?.author.name}`}
-              authorName={data?.author?.name}
-              time={data?.createdAt}
-              avatar={data?.author?.avatar}
-              small
-            ></Author>
+          <div className="p-4 mt-1 flex flex-col justify-between flex-1">
+            <div>
+              <Infor
+                to={`/category/${data?.category?.slug}`}
+                heading={data?.category?.name}
+                time={data?.createdAt}
+                normal
+              ></Infor>
+              <Link
+                to={`/${data?.slug}`}
+                className="font-fontHeading text-[26px] font-bold leading-[34px] mt-1 mb-2"
+              >
+                {data?.title}
+              </Link>
+              <p className="mb-3">{data?.description.slice(0, 100) + "..."}</p>
+            </div>
+            <div>
+              <div className="line"></div>
+              <Author
+                authorLink={`/author/${data?.author.name}`}
+                authorName={data?.author?.name}
+                time={data?.createdAt}
+                avatar={data?.author?.avatar}
+                small
+              ></Author>
+            </div>
           </div>
         </div>
       )}

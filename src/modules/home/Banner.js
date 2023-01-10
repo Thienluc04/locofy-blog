@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Heading } from "components/heading";
 import { Infor } from "components/infor";
+import { SpinLoading } from "components/loading";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -24,6 +25,7 @@ const Banner = () => {
 
   return (
     <>
+      {!blog && <SpinLoading></SpinLoading>}
       {blog?.status === statusBlog.APPROVED && (
         <div className="flex border flex-col lg:flex-row lg:max-h-[350px] border-[#DEE3EB] rounded-xl relative">
           <div className="hidden lg:block absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]">
