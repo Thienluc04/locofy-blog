@@ -100,9 +100,9 @@ const AddBlog = () => {
           hot: values.hot,
           status: values.status,
           author: {
-            id: user.id,
-            name: user.name,
-            avatar: user.avatar.url,
+            id: user.id || uuidv4(),
+            name: user.name || "Thienluc",
+            avatar: user.avatar.url || "/banner.png",
           },
           description: values.description,
           createdAt: createdAt,
