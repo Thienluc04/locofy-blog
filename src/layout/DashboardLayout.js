@@ -1,24 +1,19 @@
 import Footer from "modules/home/Footer";
 import Header from "modules/home/Header";
 import Sidebar from "modules/manage/Sidebar";
-import NotFoundPage from "pages/NotFoundPage";
-import React from "react";
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
-import { roleUser } from "util/constant";
-import { permissions } from "util/permissions";
 
 const DashboardLayout = ({ allowPermission }) => {
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
-  useEffect(() => {
-    if (!user) {
-      navigate("/login");
-    }
+  // useEffect(() => {
+  //   if (!user) {
+  //     navigate("/login");
+  //   }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [user]);
 
   return (
     <div className="bg-primary">
