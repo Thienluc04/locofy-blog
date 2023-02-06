@@ -101,8 +101,8 @@ const BlogManage = () => {
     }
   };
 
-  if (!user || user?.role === roleUser.USER)
-    return <NotFoundPage></NotFoundPage>;
+  // if (!user || user?.role === roleUser.USER)
+  //   return <NotFoundPage></NotFoundPage>;
 
   return (
     <div className="flex-1">
