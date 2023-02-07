@@ -22,7 +22,7 @@ const ArticlePage = () => {
   useEffect(() => {
     async function fetchBlog() {
       try {
-        const { data } = await axios.get(`${linkAPI}/api/blogs`);
+        const { data } = await axios.get(`${linkAPI}/blogs`);
         data.forEach((item) => {
           if (item.slug === slug) {
             setBlogInfo(item);
@@ -39,7 +39,7 @@ const ArticlePage = () => {
   useEffect(() => {
     async function fetchBlog() {
       try {
-        const { data } = await axios.get(`${linkAPI}/api/blogs`);
+        const { data } = await axios.get(`${linkAPI}/blogs`);
         setBlogSuggest(data);
       } catch (error) {
         throw new Error(error);

@@ -19,7 +19,7 @@ const UserManage = () => {
   let nextPage = 1;
 
   const [linkData, setLinkData] = useState(
-    `${linkAPI}/api/users?_page=${nextPage}&_limit=${itemsPerPage}`
+    `${linkAPI}/users?_page=${nextPage}&_limit=${itemsPerPage}`
   );
   const [isReload, setIsReload] = useState();
   const [total, setTotal] = useState();
@@ -27,7 +27,7 @@ const UserManage = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const { data } = await axios.get(`${linkAPI}/api/users`);
+      const { data } = await axios.get(`${linkAPI}/users`);
       setTotal(data.length);
     }
 
@@ -78,7 +78,7 @@ const UserManage = () => {
         if (result.isConfirmed) {
           axios({
             method: "delete",
-            url: `${linkAPI}/api/users/${id}`,
+            url: `${linkAPI}/users/${id}`,
           });
           setIsReload(true);
           Swal.fire("Deleted!", "This blog has been deleted.", "success");
@@ -89,7 +89,7 @@ const UserManage = () => {
 
   const handleSearchUser = debounce((e) => {
     setLinkData(
-      `${linkAPI}/api/users?username_like=${e.target.value}&_page=${nextPage}&_limit=${itemsPerPage}`
+      `${linkAPI}/users?username_like=${e.target.value}&_page=${nextPage}&_limit=${itemsPerPage}`
     );
     setIsLoadmore(false);
     if (e.target.value === "") {
@@ -101,7 +101,7 @@ const UserManage = () => {
     if (total > dataUsers?.length) {
       nextPage += 1;
       const { data } = await axios.get(
-        `${linkAPI}/api/users?_page=${nextPage}&_limit=${itemsPerPage}`
+        `${linkAPI}/users?_page=${nextPage}&_limit=${itemsPerPage}`
       );
       setDataUsers([...dataUsers, ...data]);
     }

@@ -11,7 +11,7 @@ export default axios.create({
 
 export const axiosPrivate = axios.create({
   // baseURL: "http://localhost:4000",
-  baseURL: "https://server-locofy.glitch.me",
+  baseURL: "https://locofy-server.onrender.com",
   headers: {
     "Content-Type": "application/json",
     "Cache-Control": "no-cache",

@@ -14,7 +14,7 @@ import { linkAPI, roleUser, statusUser } from "util/constant";
 import { v4 as uuidv4 } from "uuid";
 
 const AddUser = () => {
-  const linkData = `${linkAPI}/api/users`;
+  const linkData = `${linkAPI}/users`;
 
   const {
     control,

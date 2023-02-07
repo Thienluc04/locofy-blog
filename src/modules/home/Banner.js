@@ -12,7 +12,7 @@ const Banner = () => {
   const [blog, setBlog] = useState();
   useEffect(() => {
     async function fetchData() {
-      const { data } = await axios.get(`${linkAPI}/api/blogs`);
+      const { data } = await axios.get(`${linkAPI}/blogs`);
       data.forEach((item) => {
         if (item.hot === false) {
           setBlog(item);

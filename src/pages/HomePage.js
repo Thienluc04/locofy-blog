@@ -26,7 +26,7 @@ const HomePage = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const { data } = await axios.get(`${linkAPI}/api/blogs`);
+        const { data } = await axios.get(`${linkAPI}/blogs`);
         setAllBlog(data);
       } catch (error) {
         throw new Error(error);
@@ -39,7 +39,7 @@ const HomePage = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const { data } = await axios.get(`${linkAPI}/api/blogs`);
+        const { data } = await axios.get(`${linkAPI}/blogs`);
         setFeaturedBlogs(data);
       } catch (error) {
         throw new Error(error);

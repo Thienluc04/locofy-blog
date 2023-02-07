@@ -13,7 +13,7 @@ import { debounce } from "lodash";
 
 const AllBlog = () => {
   const [blogs, setBlogs] = useState([]);
-  const [linkData, setLinkData] = useState(`${linkAPI}/api/blogs`);
+  const [linkData, setLinkData] = useState(`${linkAPI}/blogs`);
 
   useEffect(() => {
     async function fetchData() {
@@ -24,7 +24,7 @@ const AllBlog = () => {
     fetchData();
   }, [linkData]);
   const handleSearchBlog = debounce((e) => {
-    setLinkData(`${linkAPI}/api/blogs?title_like=${e.target.value}`);
+    setLinkData(`${linkAPI}/blogs?title_like=${e.target.value}`);
   }, 300);
 
   return (

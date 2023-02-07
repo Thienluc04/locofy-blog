@@ -63,7 +63,7 @@ const LoginPage = () => {
   const handleSignIn = async (values) => {
     if (!isValid) return;
 
-    const { data } = await axios.get(`${linkAPI}/api/users`);
+    const { data } = await axios.get(`${linkAPI}/users`);
     let userCheck = {};
     data.forEach((item) => {
       if (item.email === values.email) {

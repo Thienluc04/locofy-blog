@@ -20,7 +20,7 @@ const CategoryManage = () => {
   const [isLoadMore, setIsLoadmore] = useState(true);
 
   const [linkData, setLinkData] = useState(
-    `${linkAPI}/api/categories?_page=${nextPage}&_limit=${itemsPerPage}`
+    `${linkAPI}/categories?_page=${nextPage}&_limit=${itemsPerPage}`
   );
   const [isReload, setIsReload] = useState();
   const [total, setTotal] = useState();
@@ -29,7 +29,7 @@ const CategoryManage = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const { data } = await axios.get(`${linkAPI}/api/categories`);
+      const { data } = await axios.get(`${linkAPI}/categories`);
       setTotal(data.length);
     }
 
@@ -58,7 +58,7 @@ const CategoryManage = () => {
       if (result.isConfirmed) {
         axios({
           method: "delete",
-          url: `${linkAPI}/api/categories/${id}`,
+          url: `${linkAPI}/categories/${id}`,
         });
         setIsReload(true);
         Swal.fire("Deleted!", "This blog has been deleted.", "success");
@@ -68,7 +68,7 @@ const CategoryManage = () => {
 
   const handleSearchCategory = debounce((e) => {
     setLinkData(
-      `${linkAPI}/api/categories?name_like=${e.target.value}&_page=${nextPage}&_limit=${itemsPerPage}`
+      `${linkAPI}/categories?name_like=${e.target.value}&_page=${nextPage}&_limit=${itemsPerPage}`
     );
     setIsLoadmore(false);
     if (e.target.value === "") {
@@ -80,7 +80,7 @@ const CategoryManage = () => {
     if (total > dataCategories?.length) {
       nextPage += 1;
       const { data } = await axios.get(
-        `${linkAPI}/api/categories?_page=${nextPage}&_limit=${itemsPerPage}`
+        `${linkAPI}/categories?_page=${nextPage}&_limit=${itemsPerPage}`
       );
       setDataCategories([...dataCategories, ...data]);
     }

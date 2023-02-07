@@ -13,7 +13,7 @@ const LargeBlog = ({ className = "" }) => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const { data } = await axios.get(`${linkAPI}/api/blogs`);
+        const { data } = await axios.get(`${linkAPI}/blogs`);
         data.forEach((item) => {
           if (item.hot === true && item.status === statusBlog.APPROVED) {
             setBlogData([item]);

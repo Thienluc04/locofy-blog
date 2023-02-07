@@ -29,7 +29,7 @@ const AddBlog = () => {
 
   useEffect(() => {
     async function fetchCategories() {
-      const { data } = await axios.get(`${linkAPI}/api/categories`);
+      const { data } = await axios.get(`${linkAPI}/categories`);
       setListCategory(data);
     }
     fetchCategories();
@@ -80,7 +80,11 @@ const AddBlog = () => {
     try {
       await axios({
         method: "post",
-        url: `${linkAPI}/api/blogs`,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+        },
+        url: `${linkAPI}/blogs`,
         data: {
           id: uuidv4(),
           title: values.title,

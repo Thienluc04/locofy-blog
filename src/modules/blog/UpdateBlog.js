@@ -28,7 +28,7 @@ const UpdateBlog = () => {
 
   useEffect(() => {
     async function fetchCategories() {
-      const { data } = await axios.get(`${linkAPI}/api/categories`);
+      const { data } = await axios.get(`${linkAPI}/categories`);
       setListCategory(data);
     }
     fetchCategories();
@@ -104,7 +104,7 @@ const UpdateBlog = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const { data } = await axios.get(`${linkAPI}/api/blogs`);
+        const { data } = await axios.get(`${linkAPI}/blogs`);
         data.forEach((item) => {
           if (item.slug === slug) {
             reset({
@@ -158,7 +158,7 @@ const UpdateBlog = () => {
     try {
       await axios({
         method: "patch",
-        url: `${linkAPI}/api/blogs/${blogId && blogId}`,
+        url: `${linkAPI}/blogs/${blogId && blogId}`,
         data: {
           title: values.title,
           slug: values.slug,

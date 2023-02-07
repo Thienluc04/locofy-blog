@@ -13,7 +13,7 @@ import NotFoundPage from "./NotFoundPage";
 const CategoryPage = () => {
   const [blogs, setBlogs] = useState([]);
   const [categoryName, setCategoryName] = useState("");
-  const [linkData, setLinkData] = useState(`${linkAPI}/api/blogs`);
+  const [linkData, setLinkData] = useState(`${linkAPI}/blogs`);
 
   const { slug } = useParams();
 
@@ -28,7 +28,7 @@ const CategoryPage = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const { data } = await axios.get(`${linkAPI}/api/categories`);
+      const { data } = await axios.get(`${linkAPI}/categories`);
       data.forEach((item) => {
         if (item.slug === slug) {
           setCategoryName(item.name);
@@ -40,7 +40,7 @@ const CategoryPage = () => {
   }, [slug]);
 
   const handleSearchBlog = debounce((e) => {
-    setLinkData(`${linkAPI}/api/blogs?title_like=${e.target.value}`);
+    setLinkData(`${linkAPI}/blogs?title_like=${e.target.value}`);
   }, 300);
   if (!slug) return <NotFoundPage></NotFoundPage>;
   return (

@@ -34,7 +34,7 @@ const UpdateCategory = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const { data } = await axios.get(`${linkAPI}/api/categories`);
+      const { data } = await axios.get(`${linkAPI}/categories`);
       data.forEach((item) => {
         if (item.slug === slug) {
           reset(item);
@@ -60,7 +60,7 @@ const UpdateCategory = () => {
     values.status = Number(values.status);
     axios({
       method: "patch",
-      url: `${linkAPI}/api/categories/${categoryId && categoryId}`,
+      url: `${linkAPI}/categories/${categoryId && categoryId}`,
       data: {
         name: values.name,
         slug: values.slug,

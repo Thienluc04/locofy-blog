@@ -74,7 +74,7 @@ const ProfilePage = () => {
     try {
       await axios({
         method: "patch",
-        url: `${linkAPI}/api/users/${user?.id}`,
+        url: `${linkAPI}/users/${user?.id}`,
         data: {
           name: values.name,
           email: values.email,

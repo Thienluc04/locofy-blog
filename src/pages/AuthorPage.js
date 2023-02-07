@@ -14,7 +14,7 @@ import { linkAPI } from "util/constant";
 const AuthorPage = () => {
   const { slug } = useParams();
   const [data, setData] = useState([]);
-  const [linkData, setLinkData] = useState(`${linkAPI}/api/blogs`);
+  const [linkData, setLinkData] = useState(`${linkAPI}/blogs`);
 
   useEffect(() => {
     async function fetchData() {
@@ -32,7 +32,7 @@ const AuthorPage = () => {
   }, [linkData, slug]);
 
   const handleSearchBlog = debounce((e) => {
-    setLinkData(`${linkAPI}/api/blogs?title_like=${e.target.value}`);
+    setLinkData(`${linkAPI}/blogs?title_like=${e.target.value}`);
   }, 300);
 
   return (

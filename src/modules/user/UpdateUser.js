@@ -69,7 +69,7 @@ const UpdateUser = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const { data } = await axios.get(`${linkAPI}/api/users`);
+      const { data } = await axios.get(`${linkAPI}/users`);
       data.forEach((item) => {
         if (item.name === slug) {
           reset(item);
@@ -88,7 +88,7 @@ const UpdateUser = () => {
     console.log(values);
     axios({
       method: "patch",
-      url: `${linkAPI}/api/users/${userId && userId}`,
+      url: `${linkAPI}/users/${userId && userId}`,
       data: {
         fulllname: values.fullname,
         email: values.email,

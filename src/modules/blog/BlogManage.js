@@ -24,7 +24,7 @@ const BlogManage = () => {
   let nextPage = 1;
 
   const [linkData, setLinkData] = useState(
-    `${linkAPI}/api/blogs?_page=${nextPage}&_limit=${itemsPerPage}`
+    `${linkAPI}/blogs?_page=${nextPage}&_limit=${itemsPerPage}`
   );
   const [isReload, setIsReload] = useState();
 
@@ -43,7 +43,7 @@ const BlogManage = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const { data } = await axiosPrivate.get(`${linkAPI}/api/blogs`);
+      const { data } = await axiosPrivate.get(`${linkAPI}/blogs`);
       setTotal(data.length);
     }
 
@@ -74,7 +74,7 @@ const BlogManage = () => {
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await axiosPrivate.delete(`/api/blogs/${id}`);
+        await axiosPrivate.delete(`/blogs/${id}`);
         setIsReload(true);
         Swal.fire("Deleted!", "This blog has been deleted.", "success");
       }
@@ -83,7 +83,7 @@ const BlogManage = () => {
 
   const handleSearchBlog = debounce((e) => {
     setLinkData(
-      `${linkAPI}/api/blogs?title_like=${e.target.value}&_page=${nextPage}&_limit=${itemsPerPage}`
+      `${linkAPI}/blogs?title_like=${e.target.value}&_page=${nextPage}&_limit=${itemsPerPage}`
     );
     setIsLoadmore(false);
     if (e.target.value === "") {
@@ -95,7 +95,7 @@ const BlogManage = () => {
     if (total > dataBlogs?.length) {
       nextPage += 1;
       const { data } = await axios.get(
-        `${linkAPI}/api/blogs?_page=${nextPage}&_limit=${itemsPerPage}`
+        `${linkAPI}/blogs?_page=${nextPage}&_limit=${itemsPerPage}`
       );
       setDataBlogs([...dataBlogs, ...data]);
     }
