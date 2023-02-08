@@ -25,4 +25,4 @@ export const imgbbAPI =
   "https://api.imgbb.com/1/upload?key=9d2ea74138ace1fc2b50aa6656079f7b";
 
 // export const linkAPI = "http://localhost:4000";
-export const linkAPI = "https://locofy-server.onrender.com";
+export const linkAPI = "https://locofy-auth.onrender.com/api";
