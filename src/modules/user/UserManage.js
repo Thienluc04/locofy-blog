@@ -107,12 +107,12 @@ const UserManage = () => {
     }
   };
 
-  if (
-    !user ||
-    user?.role === roleUser.MODERATOR ||
-    user?.role === roleUser.USER
-  )
-    return <NotFoundPage></NotFoundPage>;
+  // if (
+  //   !user ||
+  //   user?.role === roleUser.MODERATOR ||
+  //   user?.role === roleUser.USER
+  // )
+  //   return <NotFoundPage></NotFoundPage>;
   return (
     <>
       <div className="flex-1">

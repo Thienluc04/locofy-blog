@@ -73,7 +73,6 @@ const LoginPage = () => {
     if (userCheck.status === statusUser.ACTIVE) {
       try {
         dispatch(authLogin(values));
-        console.log("login");
       } catch (error) {
         console.log(error);
       }
