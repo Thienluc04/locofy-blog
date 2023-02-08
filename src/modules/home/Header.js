@@ -17,7 +17,7 @@ const Header = () => {
           <img src="/logo.png" className="w-[150px] lg:w-full" alt="logo" />
         </Link>
         <div className="flex gap-3 items-center">
-          {/* {user && user?.email ? (
+          {user && user?.email ? (
             <>
               {user?.role !== roleUser.USER && (
                 <Button className="w-[100px] lg:w-[182px]" to="/manage/blogs">
@@ -49,10 +49,10 @@ const Header = () => {
                 Sign up
               </Button>
             </>
-          )} */}
-          <Button className="w-[100px] lg:w-[182px]" to="/manage/blogs">
+          )}
+          {/* <Button className="w-[100px] lg:w-[182px]" to="/manage/blogs">
             Dashboard
-          </Button>
+          </Button> */}
         </div>
       </div>
     </div>
