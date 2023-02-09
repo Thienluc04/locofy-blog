@@ -14,7 +14,7 @@ export default function* handleAuthRegister(action) {
   try {
     const response = yield call(requestAuthRegister, payload);
     if (response.status === 201) {
-      toast.success("Created new account successfully");
+      toast.success("Created new account successfully!!");
     }
   } catch (error) {
     console.log(error);
@@ -26,6 +26,7 @@ function* handleAuthLogin({ payload }) {
     if (response.data.accessToken && response.data.refreshToken) {
       saveToken(response.data.accessToken, response.data.refreshToken);
       yield call(handleAuthFetchMe, { payload: response.data.accessToken });
+      toast.success("Signed in successfully!!");
     }
   } catch (error) {
     const response = error.response.data;

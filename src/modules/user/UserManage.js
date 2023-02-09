@@ -58,7 +58,7 @@ const UserManage = () => {
   const { user } = useSelector((state) => state.auth);
 
   const handleDeleteUser = (id) => {
-    if (id === user.id) {
+    if (id === user?.id) {
       Swal.fire({
         title: "Oops...",
         text: "This user is you! So you can't do this.",
@@ -89,7 +89,7 @@ const UserManage = () => {
 
   const handleSearchUser = debounce((e) => {
     setLinkData(
-      `${linkAPI}/users?username_like=${e.target.value}&_page=${nextPage}&_limit=${itemsPerPage}`
+      `${linkAPI}/users?name_like=${e.target.value}&_page=${nextPage}&_limit=${itemsPerPage}`
     );
     setIsLoadmore(false);
     if (e.target.value === "") {

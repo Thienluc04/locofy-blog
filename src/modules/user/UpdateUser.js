@@ -10,7 +10,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { linkAPI, roleUser, statusUser } from "util/constant";
+import { imgbbAPI, linkAPI, roleUser, statusUser } from "util/constant";
 
 const UpdateUser = () => {
   const { slug } = useParams();
@@ -32,6 +32,7 @@ const UpdateUser = () => {
       password: "",
       status: 2,
       role: 3,
+      birth: "",
       avatar: {},
     },
   });
@@ -43,28 +44,27 @@ const UpdateUser = () => {
   const [loadingImg, setLoadingImg] = useState(false);
   const [userId, setUserId] = useState();
 
-  const [passwordShow, setPasswordShow] = useState(false);
-  const handleTogglePassword = () => {
-    setPasswordShow(!passwordShow);
-  };
-
   const handleRemoveImage = (e) => {
     setImgUrl(null);
     setValue("avatar", "");
   };
 
-  const handleSelectImage = (e) => {
-    const reader = new FileReader();
-    reader.onloadstart = (e) => {
-      setLoadingImg(true);
-    };
-    reader.onload = (e) => {
-      setImgUrl(e.target.result);
-    };
-    reader.onloadend = (e) => {
+  const handleSelectImage = async (e) => {
+    const formData = new FormData();
+    formData.append("image", e.target.files[0]);
+    setLoadingImg(true);
+    const response = await axios({
+      method: "post",
+      url: imgbbAPI,
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    if (response.data.data) {
+      setImgUrl(response.data.data.url);
       setLoadingImg(false);
-    };
-    reader.readAsDataURL(e.target.files[0]);
+    }
   };
 
   useEffect(() => {
@@ -85,18 +85,17 @@ const UpdateUser = () => {
   const UpdateUserHandler = (values) => {
     values.role = Number(values.role);
     values.status = Number(values.status);
-    console.log(values);
     axios({
       method: "patch",
       url: `${linkAPI}/users/${userId && userId}`,
       data: {
-        fulllname: values.fullname,
         email: values.email,
-        username: values.username,
+        name: values.name,
         telephone: values.telephone,
         password: values.password,
         status: values.status,
         role: values.role,
+        birth: values.birth,
         avatar: { url: values.avatar.url },
       },
     });
@@ -158,34 +157,14 @@ const UpdateUser = () => {
                 placeholder="Enter your email"
               ></Input>
             </div>
-            <div className="flex flex-1 flex-col gap-[10px]">
-              <Label>Status</Label>
-              <div className="flex gap-[20px]">
-                <Radio
-                  control={control}
-                  checked={Number(watchStatus) === statusUser.ACTIVE}
-                  name="status"
-                  value={statusUser.ACTIVE}
-                >
-                  Active
-                </Radio>
-                <Radio
-                  control={control}
-                  checked={Number(watchStatus) === statusUser.PENDING}
-                  name="status"
-                  value={statusUser.PENDING}
-                >
-                  Pending
-                </Radio>
-                <Radio
-                  control={control}
-                  checked={Number(watchStatus) === statusUser.BANNED}
-                  name="status"
-                  value={statusUser.BANNED}
-                >
-                  Banned
-                </Radio>
-              </div>
+            <div className=" flex-1">
+              <Label htmlFor="password">Birth</Label>
+              <Input
+                control={control}
+                name="birth"
+                type="date"
+                className="w-[350px] lg:w-full"
+              ></Input>
             </div>
           </div>
           <div className="flex gap-10">
@@ -218,8 +197,35 @@ const UpdateUser = () => {
                 </Radio>
               </div>
             </div>
-
-            <div className="flex flex-1"></div>
+            <div className="flex flex-1 flex-col gap-[10px]">
+              <Label>Status</Label>
+              <div className="flex gap-[20px]">
+                <Radio
+                  control={control}
+                  checked={Number(watchStatus) === statusUser.ACTIVE}
+                  name="status"
+                  value={statusUser.ACTIVE}
+                >
+                  Active
+                </Radio>
+                <Radio
+                  control={control}
+                  checked={Number(watchStatus) === statusUser.PENDING}
+                  name="status"
+                  value={statusUser.PENDING}
+                >
+                  Pending
+                </Radio>
+                <Radio
+                  control={control}
+                  checked={Number(watchStatus) === statusUser.BANNED}
+                  name="status"
+                  value={statusUser.BANNED}
+                >
+                  Banned
+                </Radio>
+              </div>
+            </div>
           </div>
         </div>
 

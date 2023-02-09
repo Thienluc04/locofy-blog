@@ -5,10 +5,12 @@ import React, { Fragment } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { linkAPI, statusBlog } from "util/constant";
+import { linkAPI, roleUser, statusBlog } from "util/constant";
 
 const LargeBlog = ({ className = "" }) => {
   const [blogData, setBlogData] = useState();
+  const [author, setAuthor] = useState();
+  const [role, setRole] = useState();
 
   useEffect(() => {
     async function fetchData() {
@@ -25,6 +27,33 @@ const LargeBlog = ({ className = "" }) => {
     }
     fetchData();
   }, []);
+
+  useEffect(() => {
+    (async () => {
+      if (blogData && blogData[0]?.author?.id) {
+        const response = await axios.get(
+          `${linkAPI}/users/${blogData[0]?.author?.id}`
+        );
+        setAuthor(response.data);
+      }
+    })();
+  }, [blogData]);
+
+  useEffect(() => {
+    switch (author?.role) {
+      case roleUser.ADMIN:
+        setRole("Admin");
+        break;
+      case roleUser.MODERATOR:
+        setRole("Moderator");
+        break;
+      case roleUser.USER:
+        setRole("User");
+        break;
+      default:
+        break;
+    }
+  }, [author?.role]);
 
   return (
     <div
@@ -79,7 +108,7 @@ const LargeBlog = ({ className = "" }) => {
                 authorLink={`/author/${item?.author?.name}`}
                 avatar={item?.author?.avatar}
                 authorName={item?.author?.name}
-                time={item?.createdAt}
+                role={role}
                 className="mt-6"
               ></Author>
             </div>

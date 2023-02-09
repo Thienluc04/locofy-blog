@@ -85,8 +85,8 @@ const CategoryManage = () => {
       setDataCategories([...dataCategories, ...data]);
     }
   };
-  if (!user || user?.role === roleUser.USER)
-    return <NotFoundPage></NotFoundPage>;
+  // if (!user || user?.role === roleUser.USER)
+  //   return <NotFoundPage></NotFoundPage>;
 
   return (
     <>

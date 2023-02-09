@@ -51,6 +51,8 @@ const ArticlePage = () => {
 
   return (
     <>
+      {!blogInfo && <SpinLoading></SpinLoading>}
+
       {blogInfo?.status === statusBlog.APPROVED && (
         <div className="max-w-[1114px] mb-[45px] mx-auto">
           <div className="flex w-full mx-auto gap-9 my-11">
@@ -109,7 +111,6 @@ const ArticlePage = () => {
                 </div>
               </div>
             </div>
-            {!blogInfo && <SpinLoading></SpinLoading>}
 
             {blogInfo && (
               <div className="flex-1">

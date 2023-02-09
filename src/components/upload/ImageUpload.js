@@ -18,6 +18,7 @@ const ImageUpload = ({
             type="file"
             className="absolute overflow-hidden w-0 h-0"
             onChange={() => {}}
+            accept=".jpg, .jpeg, .png"
             {...props}
           />
           {imgUrl && (

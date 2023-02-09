@@ -56,7 +56,7 @@ const RegisterPage = () => {
   const handleSignUp = async (values) => {
     if (!isValid) return;
     try {
-      await dispatch(
+      dispatch(
         authRegister({
           ...values,
           status: statusUser.ACTIVE,

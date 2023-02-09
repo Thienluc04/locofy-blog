@@ -4,9 +4,37 @@ import { Infor } from "components/infor";
 import React, { Fragment, useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { linkAPI, statusBlog } from "util/constant";
+import { linkAPI, roleUser, statusBlog } from "util/constant";
 
 const FeaturedBlogItem = ({ data }) => {
+  const [author, setAuthor] = useState();
+  const [role, setRole] = useState();
+  useEffect(() => {
+    (async () => {
+      if (data?.author?.id) {
+        const response = await axios.get(
+          `${linkAPI}/users/${data?.author?.id}`
+        );
+        setAuthor(response.data);
+      }
+    })();
+  }, [data?.author?.id]);
+
+  useEffect(() => {
+    switch (author?.role) {
+      case roleUser.ADMIN:
+        setRole("Admin");
+        break;
+      case roleUser.MODERATOR:
+        setRole("Moderator");
+        break;
+      case roleUser.USER:
+        setRole("User");
+        break;
+      default:
+        break;
+    }
+  }, [author?.role]);
   return (
     <>
       {data?.hot === true && data?.status === statusBlog.APPROVED && (
@@ -42,7 +70,7 @@ const FeaturedBlogItem = ({ data }) => {
               authorLink={`/author/${data?.author?.name}`}
               avatar={data?.author?.avatar}
               authorName={data?.author?.name}
-              time={data?.createdAt}
+              role={role}
               small
             ></Author>
           </div>

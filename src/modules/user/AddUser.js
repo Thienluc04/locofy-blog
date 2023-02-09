@@ -10,12 +10,10 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { authRegister } from "store/auth/auth-slice";
-import { linkAPI, roleUser, statusUser } from "util/constant";
+import { imgbbAPI, linkAPI, roleUser, statusUser } from "util/constant";
 import { v4 as uuidv4 } from "uuid";
 
 const AddUser = () => {
-  const linkData = `${linkAPI}/users`;
-
   const {
     control,
     watch,
@@ -41,7 +39,6 @@ const AddUser = () => {
   const AddUserHandler = async (values) => {
     values.status = Number(values.status);
     values.role = Number(values.role);
-
     try {
       await dispatch(
         authRegister({
@@ -80,18 +77,22 @@ const AddUser = () => {
     setValue("avatar", "");
   };
 
-  const handleSelectImage = (e) => {
-    const reader = new FileReader();
-    reader.onloadstart = (e) => {
-      setLoadingImg(true);
-    };
-    reader.onload = (e) => {
-      setImgUrl(e.target.result);
-    };
-    reader.onloadend = (e) => {
+  const handleSelectImage = async (e) => {
+    const formData = new FormData();
+    formData.append("image", e.target.files[0]);
+    setLoadingImg(true);
+    const response = await axios({
+      method: "post",
+      url: imgbbAPI,
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    if (response.data.data) {
+      setImgUrl(response.data.data.url);
       setLoadingImg(false);
-    };
-    reader.readAsDataURL(e.target.files[0]);
+    }
   };
 
   useEffect(() => {
@@ -105,8 +106,8 @@ const AddUser = () => {
   return (
     <>
       <form onSubmit={handleSubmit(AddUserHandler)} className="flex-1">
-        <Heading>All Users</Heading>
-        <p className="text-textColor mt-2">Manage all users</p>
+        <Heading>Add User</Heading>
+        <p className="text-textColor mt-2">Manage add user</p>
         <div className="flex flex-col gap-10 mt-10">
           <div className="w-[200px] rounded-full mx-auto">
             <ImageUpload

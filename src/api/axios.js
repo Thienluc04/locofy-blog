@@ -10,7 +10,7 @@ export default axios.create({
 });
 
 export const axiosPrivate = axios.create({
-  // baseURL: "http://localhost:4000",
+  // baseURL: "http://localhost:4000/api",
   baseURL: "https://locofy-auth.onrender.com/api",
   headers: {
     "Content-Type": "application/json",

@@ -76,18 +76,22 @@ const UpdateBlog = () => {
     setValue("image", "");
   };
 
-  const handleSelectImage = (e) => {
-    const reader = new FileReader();
-    reader.onloadstart = (e) => {
-      setLoadingImg(true);
-    };
-    reader.onload = (e) => {
-      setImgUrl(e.target.result);
-    };
-    reader.onloadend = (e) => {
+  const handleSelectImage = async (e) => {
+    const formData = new FormData();
+    formData.append("image", e.target.files[0]);
+    setLoadingImg(true);
+    const response = await axios({
+      method: "post",
+      url: imgbbAPI,
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    if (response.data.data) {
+      setImgUrl(response.data.data.url);
       setLoadingImg(false);
-    };
-    reader.readAsDataURL(e.target.files[0]);
+    }
   };
 
   useEffect(() => {

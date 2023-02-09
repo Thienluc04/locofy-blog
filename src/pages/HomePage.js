@@ -56,7 +56,9 @@ const HomePage = () => {
         <div className="lg:mt-[65px] mt-10">
           <Heading className="mb-5 lg:px-0 px-4">Editor’s Pick</Heading>
           <FeaturedBlogs>
-            {!featuredBlogs && <SpinLoading></SpinLoading>}
+            {(!featuredBlogs || featuredBlogs.length <= 0) && (
+              <SpinLoading></SpinLoading>
+            )}
             {featuredBlogs.map((item, index) => {
               if (index <= 4) {
                 return (
