@@ -57,7 +57,7 @@ const LargeBlog = ({ className = "" }) => {
 
   return (
     <div
-      className={`flex lg:flex-row flex-col justify-center items-center rounded-lg p-3 lg:p-6 lg:gap-5 ${className}`}
+      className={`flex lg:flex-row flex-col-reverse justify-center items-center rounded-lg p-3 lg:p-6 lg:gap-5 ${className}`}
     >
       {!blogData && <SpinLoading></SpinLoading>}
       {blogData?.length > 0 &&
