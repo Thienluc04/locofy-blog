@@ -8,7 +8,6 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import Swal from "sweetalert2";
 import { imgbbAPI, linkAPI } from "util/constant";
 
 const ProfilePage = () => {
@@ -71,7 +70,7 @@ const ProfilePage = () => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [user]);
 
   const UpdateProfileHandle = async (values) => {
     if (!isValid) return;

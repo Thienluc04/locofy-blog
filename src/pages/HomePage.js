@@ -56,9 +56,9 @@ const HomePage = () => {
         <div className="lg:mt-[65px] mt-10">
           <Heading className="mb-5 lg:px-0 px-4">Editor’s Pick</Heading>
           <FeaturedBlogs>
-            {(!featuredBlogs || featuredBlogs.length <= 0) && (
-              <SpinLoading></SpinLoading>
-            )}
+            {(!featuredBlogs ||
+              featuredBlogs.length <= 0 ||
+              featuredBlogs[0].status !== 1) && <SpinLoading></SpinLoading>}
             {featuredBlogs.map((item, index) => {
               if (index <= 4) {
                 return (
@@ -80,7 +80,9 @@ const HomePage = () => {
             </Link>
           </div>
           <BlogsList>
-            {!allBlog && <SpinLoading></SpinLoading>}
+            {(!allBlog || (allBlog && allBlog[0].status !== 1)) && (
+              <SpinLoading></SpinLoading>
+            )}
             <BlogItem data={allBlog && allBlog[0]}></BlogItem>
             <BlogItem data={allBlog && allBlog[1]}></BlogItem>
             <BlogItem data={allBlog && allBlog[2]}></BlogItem>

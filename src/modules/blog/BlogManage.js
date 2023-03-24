@@ -6,14 +6,11 @@ import { Status } from "components/status";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import { linkAPI, roleUser, statusBlog } from "util/constant";
+import { linkAPI, statusBlog } from "util/constant";
 import { debounce } from "lodash";
-import ReactPaginate from "react-paginate";
-import queryString from "query-string";
 import useAxiosPrivate from "hooks/useAxiosPrivate";
-import NotFoundPage from "pages/NotFoundPage";
 import { useSelector } from "react-redux";
 
 const itemsPerPage = 3;
