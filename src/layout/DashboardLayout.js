@@ -1,19 +1,23 @@
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Footer from "modules/home/Footer";
 import Header from "modules/home/Header";
 import Sidebar from "modules/manage/Sidebar";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 
 const DashboardLayout = ({ allowPermission }) => {
-  const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   if (!user) {
-  //     navigate("/login");
-  //   }
 
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [user]);
+  const auth = getAuth();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (!user || !user.displayName) {
+        navigate("/");
+        return;
+      }
+    });
+  }, [auth, navigate]);
 
   return (
     <div className="bg-primary">

@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^14.4.3",
     "axios": "^1.2.1",
     "cors": "^2.8.5",
+    "firebase": "^9.21.0",
     "html-react-parser": "^3.0.4",
     "js-cookie": "^3.0.1",
     "query-string": "^8.1.0",

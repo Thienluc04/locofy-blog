@@ -18,7 +18,7 @@ const itemsPerPage = 3;
 const BlogManage = () => {
   const [dataBlogs, setDataBlogs] = useState([]);
   const [isLoadMore, setIsLoadmore] = useState(true);
-  let nextPage = 1;
+  const [nextPage, setNextPage] = useState(1);
 
   const [linkData, setLinkData] = useState(
     `${linkAPI}/blogs?_page=${nextPage}&_limit=${itemsPerPage}`
@@ -35,8 +35,6 @@ const BlogManage = () => {
   ];
   const [total, setTotal] = useState();
   const axiosPrivate = useAxiosPrivate();
-
-  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     async function fetchData() {
@@ -89,14 +87,18 @@ const BlogManage = () => {
   }, 300);
 
   const handleLoadMore = async () => {
-    if (total > dataBlogs?.length) {
-      nextPage += 1;
+    setNextPage(nextPage + 1);
+  };
+
+  useEffect(() => {
+    (async () => {
       const { data } = await axios.get(
         `${linkAPI}/blogs?_page=${nextPage}&_limit=${itemsPerPage}`
       );
       setDataBlogs([...dataBlogs, ...data]);
-    }
-  };
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [nextPage]);
 
   // if (!user || user?.role === roleUser.USER)
   //   return <NotFoundPage></NotFoundPage>;

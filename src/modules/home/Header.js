@@ -1,11 +1,24 @@
 import { Button } from "components/button";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { roleUser } from "util/constant";
 
 const Header = () => {
-  const { user } = useSelector((state) => state.auth);
+  const [isLoggedIn, setIsLoggedIn] = useState();
+
+  const auth = getAuth();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (!user || !user.displayName) {
+        setIsLoggedIn(false);
+        return;
+      }
+      setIsLoggedIn(true);
+    });
+  }, [auth]);
 
   return (
     <div className="bg-[rgba(255,_255,_255,_0.9)]">
@@ -17,20 +30,18 @@ const Header = () => {
           <img src="/logo.png" className="w-[150px] lg:w-full" alt="logo" />
         </Link>
         <div className="flex gap-3 items-center">
-          {/* {user && user?.email ? (
+          {isLoggedIn ? (
             <>
-              {user?.role !== roleUser.USER && (
-                <Button className="w-[100px] lg:w-[182px]" to="/manage/blogs">
-                  Dashboard
-                </Button>
-              )}
-              <Link to={"/profile"}>
+              <Button className="w-[100px] lg:w-[182px]" to="/manage/blogs">
+                Dashboard
+              </Button>
+              {/* <Link to={"/profile"}>
                 <img
                   className="h-12 w-12 rounded-full object-cover"
                   src={user?.avatar?.url || "/banner.png"}
                   alt="logo"
                 />
-              </Link>
+              </Link> */}
             </>
           ) : (
             <>
@@ -49,10 +60,10 @@ const Header = () => {
                 Sign up
               </Button>
             </>
-          )} */}
-          <Button className="w-[100px] lg:w-[182px]" to="/manage/blogs">
+          )}
+          {/* <Button className="w-[100px] lg:w-[182px]" to="/manage/blogs">
             Dashboard
-          </Button>
+          </Button> */}
         </div>
       </div>
     </div>

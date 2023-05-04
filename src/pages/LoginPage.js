@@ -7,12 +7,14 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useDispatch, useSelector } from "react-redux";
-import { authLogin } from "store/auth/auth-slice";
-import { linkAPI, statusUser } from "util/constant";
-import axios from "api/axios";
+import "firebase/compat/auth";
+import {
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 const schema = yup.object({
   email: yup
@@ -49,36 +51,47 @@ const LoginPage = () => {
     document.title = "Login";
   }, []);
 
-  const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
+  const auth = getAuth();
+
   useEffect(() => {
-    if (user && user?.email) {
+    onAuthStateChanged(auth, (user) => {
+      if (!user || !user.displayName) {
+        return;
+      }
       navigate("/");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+    });
+  }, [auth, navigate]);
 
   const handleSignIn = async (values) => {
     if (!isValid) return;
 
-    const { data } = await axios.get(`${linkAPI}/users`);
-    let userCheck = {};
-    data.forEach((item) => {
-      if (item.email === values.email) {
-        userCheck = item;
-      }
-    });
-    if (userCheck.status === statusUser.ACTIVE) {
-      try {
-        dispatch(authLogin(values));
-      } catch (error) {
-        console.log(error);
-      }
-    } else {
-      toast.error("The account just entered is not activated!");
-    }
+    // const { data } = await axios.get(`${linkAPI}/users`);
+    // let userCheck = {};
+    // data.forEach((item) => {
+    //   if (item.email === values.email) {
+    //     userCheck = item;
+    //   }
+    // });
+    // if (userCheck.status === statusUser.ACTIVE) {
+    //   try {
+    //     dispatch(authLogin(values));
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // } else {
+    //   toast.error("The account just entered is not activated!");
+    // }
+
+    await signInWithEmailAndPassword(auth, values.email, values.password)
+      .then((user) => {
+        navigate("/");
+        toast.success("Login successfully !");
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
   };
 
   return (

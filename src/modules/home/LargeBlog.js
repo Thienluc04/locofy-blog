@@ -28,32 +28,32 @@ const LargeBlog = ({ className = "" }) => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    (async () => {
-      if (blogData && blogData[0]?.author?.id) {
-        const response = await axios.get(
-          `${linkAPI}/users/${blogData[0]?.author?.id}`
-        );
-        setAuthor(response.data);
-      }
-    })();
-  }, [blogData]);
+  // useEffect(() => {
+  //   (async () => {
+  //     if (blogData && blogData[0]?.author?.id) {
+  //       const response = await axios.get(
+  //         `${linkAPI}/users/${blogData[0]?.author?.id}`
+  //       );
+  //       setAuthor(response.data);
+  //     }
+  //   })();
+  // }, [blogData]);
 
-  useEffect(() => {
-    switch (author?.role) {
-      case roleUser.ADMIN:
-        setRole("Admin");
-        break;
-      case roleUser.MODERATOR:
-        setRole("Moderator");
-        break;
-      case roleUser.USER:
-        setRole("User");
-        break;
-      default:
-        break;
-    }
-  }, [author?.role]);
+  // useEffect(() => {
+  //   switch (author?.role) {
+  //     case roleUser.ADMIN:
+  //       setRole("Admin");
+  //       break;
+  //     case roleUser.MODERATOR:
+  //       setRole("Moderator");
+  //       break;
+  //     case roleUser.USER:
+  //       setRole("User");
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // }, [author?.role]);
 
   return (
     <div
@@ -104,13 +104,13 @@ const LargeBlog = ({ className = "" }) => {
                 </svg>
               </Link>
               <div className="w-full h-[1px] bg-[#ECF0F6] mt-6"></div>
-              <Author
+              {/* <Author
                 authorLink={`/author/${item?.author?.name}`}
                 avatar={item?.author?.avatar}
                 authorName={item?.author?.name}
                 role={role}
                 className="mt-6"
-              ></Author>
+              ></Author> */}
             </div>
             <div>
               <Link to={`/${item?.slug}`}>

@@ -9,16 +9,16 @@ import { linkAPI, roleUser, statusBlog } from "util/constant";
 const FeaturedBlogItem = ({ data }) => {
   const [author, setAuthor] = useState();
   const [role, setRole] = useState();
-  useEffect(() => {
-    (async () => {
-      if (data?.author?.id) {
-        const response = await axios.get(
-          `${linkAPI}/users/${data?.author?.id}`
-        );
-        setAuthor(response.data);
-      }
-    })();
-  }, [data?.author?.id]);
+  // useEffect(() => {
+  //   (async () => {
+  //     if (data?.author?.id) {
+  //       const response = await axios.get(
+  //         `${linkAPI}/users/${data?.author?.id}`
+  //       );
+  //       setAuthor(response.data);
+  //     }
+  //   })();
+  // }, [data?.author?.id]);
 
   useEffect(() => {
     switch (author?.role) {

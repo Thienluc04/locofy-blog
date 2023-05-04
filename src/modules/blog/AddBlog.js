@@ -104,9 +104,6 @@ const AddBlog = () => {
           hot: values.hot,
           status: values.status,
           author: {
-            // id: uuidv4(),
-            // name:"Thienluc",
-            // avatar: ,
             id: user?.id || uuidv4(),
             name: user?.name || "Thienluc",
             avatar: user?.avatar.url || "/banner.png",
@@ -179,6 +176,7 @@ const AddBlog = () => {
   useEffect(() => {
     if (imgUrl != null) {
       setValue("image", imgUrl);
+      console.log(imgUrl);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imgUrl]);

@@ -6,12 +6,15 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useDispatch } from "react-redux";
-import { authRegister } from "store/auth/auth-slice";
-import { v4 as uuidv4 } from "uuid";
-import { roleUser, statusUser } from "util/constant";
+import "firebase/compat/auth";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  onAuthStateChanged,
+  updateProfile,
+} from "firebase/auth";
 
 const schema = yup.object({
   name: yup.string().required("Please enter your username"),
@@ -29,7 +32,6 @@ const RegisterPage = () => {
   const {
     control,
     handleSubmit,
-    setValue,
     formState: { isValid, isSubmitting, errors },
   } = useForm({
     mode: "onSubmit",
@@ -50,23 +52,29 @@ const RegisterPage = () => {
     document.title = "Register";
   }, []);
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const auth = getAuth();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (!user || !user.displayName) {
+        return;
+      }
+      navigate("/");
+    });
+  }, [auth, navigate]);
 
   const handleSignUp = async (values) => {
     if (!isValid) return;
-    try {
-      dispatch(
-        authRegister({
-          ...values,
-          status: statusUser.ACTIVE,
-          role: roleUser.USER,
-        })
-      );
-      navigate("/login");
-    } catch (error) {
-      console.log(error);
-    }
+    await createUserWithEmailAndPassword(
+      auth,
+      values.email,
+      values.password
+    ).then(async (userPrev) => {
+      await updateProfile(userPrev.user, { displayName: values.name });
+      navigate("/");
+      toast.success("Register successfully !");
+    });
   };
 
   return (

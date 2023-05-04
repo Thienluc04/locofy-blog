@@ -1,52 +1,51 @@
-import DashboardLayout from "layout/DashboardLayout";
-import HomeLayout from "layout/HomeLayout";
+import { Route, Routes } from "react-router-dom";
 import AddBlog from "modules/blog/AddBlog";
-import AllBlog from "modules/blog/AllBlog";
-import BlogManage from "modules/blog/BlogManage";
-import UpdateBlog from "modules/blog/UpdateBlog";
 import AddCategory from "modules/category/AddCategory";
-import CategoryManage from "modules/category/CategoryManage";
-import UpdateCategory from "modules/category/UpdateCategory";
-import AddUser from "modules/user/AddUser";
-import UpdateUser from "modules/user/UpdateUser";
-import UserManage from "modules/user/UserManage";
+import AllBlog from "modules/blog/AllBlog";
 import ArticlePage from "pages/ArticlePage";
 import AuthorPage from "pages/AuthorPage";
+import BlogManage from "modules/blog/BlogManage";
+import CategoryManage from "modules/category/CategoryManage";
 import CategoryPage from "pages/CategoryPage";
+import DashboardLayout from "layout/DashboardLayout";
+import HomeLayout from "layout/HomeLayout";
+import HomePage from "./pages/HomePage";
 import LoginPage from "pages/LoginPage";
 import NotFoundPage from "pages/NotFoundPage";
-import ProfilePage from "pages/ProfilePage";
 import RegisterPage from "pages/RegisterPage";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Route, Routes } from "react-router-dom";
-import { authRefreshToken, authUpdateUser } from "store/auth/auth-slice";
-import { getToken, logOut } from "util/auth";
-import HomePage from "./pages/HomePage";
+import UpdateBlog from "modules/blog/UpdateBlog";
+import UpdateCategory from "modules/category/UpdateCategory";
+import firebase from "firebase/compat/app";
 
 const App = () => {
-  const { user } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
+  // const { user } = useSelector((state) => state.auth);
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (user && user.id) {
-      const { access_token } = getToken();
-      dispatch(
-        authUpdateUser({
-          user: user,
-          accessToken: access_token,
-        })
-      );
-    } else {
-      const { refresh_token } = getToken();
-      if (refresh_token) {
-        dispatch(authRefreshToken(refresh_token));
-      } else {
-        dispatch(authUpdateUser({}));
-        logOut();
-      }
-    }
-  }, [dispatch, user]);
+  // useEffect(() => {
+  //   if (user && user.id) {
+  //     const { access_token } = getToken();
+  //     dispatch(
+  //       authUpdateUser({
+  //         user: user,
+  //         accessToken: access_token,
+  //       })
+  //     );
+  //   } else {
+  //     const { refresh_token } = getToken();
+  //     if (refresh_token) {
+  //       dispatch(authRefreshToken(refresh_token));
+  //     } else {
+  //       dispatch(authUpdateUser({}));
+  //       logOut();
+  //     }
+  //   }
+  // }, [dispatch, user]);
+
+  const config = {
+    apiKey: "AIzaSyBZbh9a1xjaBbMI025_MDM27SALB5lUjCs",
+    authDomain: "locofy-blog.firebaseapp.com",
+  };
+  firebase.initializeApp(config);
 
   return (
     <Routes>
@@ -57,14 +56,14 @@ const App = () => {
       </Route>
       <Route element={<DashboardLayout></DashboardLayout>}>
         <Route path="manage/blogs" element={<BlogManage></BlogManage>}></Route>
-        <Route path="manage/users" element={<UserManage></UserManage>}></Route>
+        {/* <Route path="manage/users" element={<UserManage></UserManage>}></Route> */}
         <Route
           path="manage/categories"
           element={<CategoryManage></CategoryManage>}
         ></Route>
 
         <Route path="manage/add-blog" element={<AddBlog></AddBlog>}></Route>
-        <Route path="manage/add-user" element={<AddUser></AddUser>}></Route>
+        {/* <Route path="manage/add-user" element={<AddUser></AddUser>}></Route> */}
         <Route
           path="manage/add-category"
           element={<AddCategory></AddCategory>}
@@ -77,11 +76,12 @@ const App = () => {
           path="manage/update-category/:slug"
           element={<UpdateCategory></UpdateCategory>}
         ></Route>
-        <Route
+        {/* <Route
           path="manage/update-user/:slug"
           element={<UpdateUser></UpdateUser>}
-        ></Route>
-        <Route path="/profile" element={<ProfilePage></ProfilePage>}></Route>
+          O
+        ></Route> */}
+        {/* <Route path="/profile" element={<ProfilePage></ProfilePage>}></Route> */}
       </Route>
       <Route path="/login" element={<LoginPage></LoginPage>}></Route>
       <Route path="/register" element={<RegisterPage></RegisterPage>}></Route>
