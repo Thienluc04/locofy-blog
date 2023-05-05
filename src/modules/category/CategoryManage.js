@@ -16,7 +16,8 @@ const itemsPerPage = 3;
 const CategoryManage = () => {
   const [dataCategories, setDataCategories] = useState([]);
   const headTypeName = ["Id", "Name", "Slug", "Status", "Actions"];
-  let nextPage = 1;
+  const [nextPage, setNextPage] = useState(1);
+
   const [isLoadMore, setIsLoadmore] = useState(true);
 
   const [linkData, setLinkData] = useState(
@@ -76,17 +77,19 @@ const CategoryManage = () => {
     }
   }, 300);
 
-  const handleLoadMore = async () => {
-    if (total > dataCategories?.length) {
-      nextPage += 1;
+  const handleLoadMore = () => {
+    setNextPage(nextPage + 1);
+  };
+
+  useEffect(() => {
+    (async () => {
       const { data } = await axios.get(
         `${linkAPI}/categories?_page=${nextPage}&_limit=${itemsPerPage}`
       );
       setDataCategories([...dataCategories, ...data]);
-    }
-  };
-  // if (!user || user?.role === roleUser.USER)
-  //   return <NotFoundPage></NotFoundPage>;
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [nextPage]);
 
   return (
     <>

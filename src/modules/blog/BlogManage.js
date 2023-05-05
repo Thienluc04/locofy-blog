@@ -86,7 +86,7 @@ const BlogManage = () => {
     }
   }, 300);
 
-  const handleLoadMore = async () => {
+  const handleLoadMore = () => {
     setNextPage(nextPage + 1);
   };
 
